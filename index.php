@@ -8,7 +8,7 @@ $key = $_SERVER["QUERY_STRING"];
 
 if($key==""){
 
-    header("Location:form.php");
+    include("templates/form.html");
 
     exit;
 }
