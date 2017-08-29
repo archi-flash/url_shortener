@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mauris/packer": "^1.0"
+    }
+}
