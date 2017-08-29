@@ -1,4 +1,8 @@
 <?php
+spl_autoload_register(function ($class_name) {
+    include 'classes/'.$class_name . '.class.php';
+});
+
 
 $key = $_SERVER["QUERY_STRING"];
 
@@ -13,7 +17,6 @@ $reg = '/^[A-Za-z0-9]{5,5}$/';
 
 if(preg_match($reg,$key)){
 
-    require_once 'classes/shortUrl.class.php';
                    
     $shortUrl = new ShortUrl();
 
