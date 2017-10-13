@@ -1,10 +1,10 @@
 <?php
 class ShortUrl
 {                  
-    public static $packer;
-    public static $packerS;
-    public static $short_url;
-    public static $user_url;
+    public $packer;
+    public $packerS;
+    public $short_url;
+    public $user_url;
 
    function __construct() {
 
@@ -12,35 +12,35 @@ class ShortUrl
 
        $loader->add('Packer\\', __DIR__);
 
-       self::$packer = new Packer\Packer('data/userLinks.pack');
+       $this->packer = new Packer\Packer('data/userLinks.pack');
 
-       self::$packerS = new Packer\Packer('data/shortLinks.pack');
+       $this->packerS = new Packer\Packer('data/shortLinks.pack');
 
    }
 
     public function storeUrl($user_url){
 
-        self::$short_url = self::create_url();
+        $this->short_url = $this->create_url();
 
-        self::$packer->write(self::$short_url, $user_url);
+        $this->packer->write($this->short_url, $user_url);
 
-        self::$packerS->write($user_url, self::$short_url);
+        $this->packerS->write($user_url, $this->short_url);
 
-        return self::$short_url;
+        return $this->short_url;
         
     }
                            
     public function getShortUrl($user_url){
 
-            self::$short_url = self::$packerS->read($user_url);
+            $this->short_url = $this->packerS->read($user_url);
              
-            return self::$short_url;
+            return $this->short_url;
 
     }
 
     public function shortUrlExist($user_url){
         
-        if(self::$packerS->exist($user_url)){
+        if($this->packerS->exist($user_url)){
         
             return true;
 
@@ -53,9 +53,9 @@ class ShortUrl
 
     public function getUserUrl($short_url){
 
-            self::$user_url = self::$packer->read($short_url);
+            $this->user_url = $this->packer->read($short_url);
              
-            return self::$user_url;
+            return $this->user_url;
 
     }
 
@@ -75,9 +75,9 @@ class ShortUrl
 
         }
 
-        if(self::$packer->exist($url)){
+        if($this->packer->exist($url)){
 
-            return self::create_url();
+            return $this->create_url();
 
         }
 
