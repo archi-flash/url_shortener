@@ -6,19 +6,20 @@ class ShortUrl
     public $short_url;
     public $user_url;
 
-   function __construct() {
+     function __construct() {
 
-       $loader = require('./vendor/autoload.php');
+         $loader = require('./vendor/autoload.php');
 
-       $loader->add('Packer\\', __DIR__);
+         $loader->add('Packer\\', __DIR__);
 
-       $this->packer = new Packer\Packer('data/userLinks.pack');
+         $this->packer = new Packer\Packer('data/userLinks.pack');
 
-       $this->packerS = new Packer\Packer('data/shortLinks.pack');
+         $this->packerS = new Packer\Packer('data/shortLinks.pack');
 
-   }
+    }
 
-    public function storeUrl($user_url){
+    public function storeUrl($user_url)
+    {
 
         $this->short_url = $this->create_url();
 
@@ -30,7 +31,8 @@ class ShortUrl
         
     }
                            
-    public function getShortUrl($user_url){
+    public function getShortUrl($user_url)
+    {
 
             $this->short_url = $this->packerS->read($user_url);
              
@@ -38,20 +40,22 @@ class ShortUrl
 
     }
 
-    public function shortUrlExist($user_url){
+    public function shortUrlExist($user_url)
+    {
         
-        if($this->packerS->exist($user_url)){
+        if ($this->packerS->exist($user_url)) {
         
             return true;
 
-        }else{
+        } else {
          
             return false;
 
         }
     }
 
-    public function getUserUrl($short_url){
+    public function getUserUrl($short_url)
+    {
 
             $this->user_url = $this->packer->read($short_url);
              
@@ -59,7 +63,8 @@ class ShortUrl
 
     }
 
-    private function create_url() { 
+    private function create_url() 
+    { 
 
         $chars = "123456789abcdfghjkmnpqrstvwxyzABCDFGHJKLMNPQRSTVWXYZ";
 
@@ -67,7 +72,7 @@ class ShortUrl
     
         $url = ""; 
 
-        for($i = 0; $i < 5; $i++){ 
+        for ($i = 0; $i < 5; $i++) { 
 
             $random = rand(0, count($arr) - 1); 
 
@@ -75,7 +80,7 @@ class ShortUrl
 
         }
 
-        if($this->packer->exist($url)){
+        if ($this->packer->exist($url)) {
 
             return $this->create_url();
 
